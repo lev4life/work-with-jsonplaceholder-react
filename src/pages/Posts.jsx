@@ -18,9 +18,7 @@ function Posts() {
   const [isPostsLoading, setIsPostsLoading] = useState(false)
 
   useEffect(() => {
-    setTimeout(() => {
       fetchPosts()
-    }, 2000)
   }, []) 
 
   const createPost = (newPost) => {
@@ -30,9 +28,12 @@ function Posts() {
 
   async function fetchPosts() {
     setIsPostsLoading(true)
-    const posts = await PostService.getAll()
-    setPosts(posts)
-    setIsPostsLoading(false)
+    setTimeout(async() => {
+      const posts = await PostService.getAll()
+      setPosts(posts)
+      setIsPostsLoading(false)
+    }, 2000)
+    
   }
 
   const removePost = (post) => {
@@ -48,7 +49,6 @@ function Posts() {
       <Modal visible={modal} setVisible={setModal}>
         <PostForm create={createPost}/>
       </Modal>
-      <hr style={{margin: '15px 0'}}/>
       <PostFilter filter={filter} setFilter={setFilter}/>
       {isPostsLoading
         ? <h1>Загрузка...</h1>

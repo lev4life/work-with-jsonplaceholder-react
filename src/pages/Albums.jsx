@@ -10,17 +10,22 @@ function Albums() {
   const [albums, setAlbums] = useState([])
   const [filter, setFilter] = useState({sort: '', query: ''})
   const sortedAndSerchedAlbums = useAlbums(albums, filter.sort, filter.query)
+  const [isAlbumsLoading, setIsAlbumsLoading] = useState(false)
+
 
   useEffect(() => {
-    setTimeout(() => {
       fetchPosts()
-    }, 2000)
   }, []) 
 
 
   async function fetchPosts() {
-    const albums = await AlbumService.getAll()
-    setAlbums(albums)
+    setIsAlbumsLoading(true)
+    setTimeout(async() => {
+      const albums = await AlbumService.getAll()
+      setAlbums(albums)
+      setIsAlbumsLoading(false)
+    }, 2000)
+    
   }
 
   const removeAlbum = (album) => {
@@ -31,7 +36,11 @@ function Albums() {
     <div className="App">
       <h1>Альбомы</h1>
       <AlbumFilter filter={filter} setFilter={setFilter}/>
-      <AlbumList remove={removeAlbum} albums={sortedAndSerchedAlbums}/>
+      {isAlbumsLoading
+      ? <h1>Загрузка...</h1>
+      : <AlbumList remove={removeAlbum} albums={sortedAndSerchedAlbums}/>
+      }
+      
     </div>
   );
 }

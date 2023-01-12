@@ -2,19 +2,23 @@ import React, { useState, useEffect } from "react";
 import { useFetching } from "../hooks/useFetching";
 import { useParams } from 'react-router-dom'
 import PostService from '../API/PostService'
-import MyLoader from '../components/UI/Loader/MyLoader'
+import Btn from "../components/UI/button/Btn";
+import Modal from "../components/UI/modal/Modal";
+import CommentForm from "../components/CommentForm";
+
 
 const PostIdPage = () => {
     const params = useParams()
     const [post, setPost] = useState({})
-    const [comments, setComments] = useState([])
+    const [comment, setComment] = useState([])
+    const [modal, setModal] = useState(false)
     const [fetchPostsById, isPostLoading] = useFetching( async (id) => {
         const response = await PostService.getPostById(id)
         setPost(response.data)
     })
     const [fetchComments, isCommentsLoading] = useFetching( async (id) => {
         const response = await PostService.getCommentsByPostId(id)
-        setComments(response.data)
+        setComment(response.data)
     })
 
     useEffect(() => {
@@ -23,21 +27,34 @@ const PostIdPage = () => {
             fetchComments(params.id)
         },2000)
     }, [])
+
+    const createComment = (newComment => {
+        setComment([...comment, newComment])
+        setModal(false)
+      })
+
     return(
         <div>
-            <h1>Пост № = {params.id}</h1>
+            <h1>Пост № {params.id}</h1>
             {isPostLoading
-            ? <MyLoader/>
+            ? <h1>Загрузка...</h1>
             : <div>{post.id}. {post.title}</div>
         }
+        <Btn style={{marginTop: '30px'}} onClick={() => setModal(true)}>
+        Создать пост
+      </Btn>
+      <Modal visible={modal} setVisible={setModal}>
+        <CommentForm create={createComment}/>
+      </Modal>
         <h4>Комментарии:</h4>
         {isCommentsLoading
-        ? <MyLoader/>
+        ? <h1>Загрузка...</h1>
         : <div>
-            {comments.map(comments => 
-                <div key={comments.id} style={{marginTop: 15}}>
-                    <h4>{comments.email}</h4>
-                    <div>{comments.body}</div>
+            {comment.map(comment => 
+                <div key={comment.id} style={{marginTop: 15}}>
+                    <h4>{comment.email}</h4>
+                    <h4>{comment.name}</h4>
+                    <div>{comment.body}</div>
                 </div>
                 )}
         </div>

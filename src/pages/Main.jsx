@@ -9,17 +9,21 @@ function Main() {
   const [users, setUsers] = useState([])
   const [filter] = useState({sort: '', query: ''})
   const sortedAndSerchedUsers = useUsers(users, filter.sort, filter.query)
+  const [isUsersLoading, setIsUsersLoading] = useState(false)
+
 
   useEffect(() => {
-    setTimeout(() => {
       fetchUsers()
-    }, 2000)
   }, []) 
 
 
   async function fetchUsers() {
-    const users = await MainService.getAll()
-    setUsers(users)
+    setIsUsersLoading(true)
+    setTimeout(async() => {
+      const users = await MainService.getAll()
+      setUsers(users)
+      setIsUsersLoading(false)
+    }, 2000)
   }
 
   const removeUser = (user) => {
@@ -30,7 +34,11 @@ function Main() {
     <div className="App">
       <h1 style={{textAlign: 'center'}}>Добро пожаловать!</h1>
       <h2>Наши пользователи:</h2>
-      <MainList remove={removeUser} users={sortedAndSerchedUsers}/>
+      {isUsersLoading
+      ? <h1>Загрузка...</h1>
+      : <MainList remove={removeUser} users={sortedAndSerchedUsers}/>
+      }
+      
     </div>
   );
 }
