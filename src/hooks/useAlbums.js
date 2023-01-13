@@ -1,21 +1,15 @@
 import {useMemo} from 'react'
+import Posts from '../pages/Posts'
 
-export const useSortedAlbums = (albums, sort) => {
-
-    const sortedAlbums = useMemo(() => {
-
-        if(sort) {
-          return [...albums].sort((a, b) => a[sort].localeCompare(b[sort]))
-        }
-        return albums
-      
-      }, [sort, albums])
-
-      return sortedAlbums;
+const useSortedAlbums = (albums, userId) => {
+if(userId !== 'nobody') {
+  return albums.filter(album => album.userId == userId)
+}
+  return albums
 }
 
-export const useAlbums = (albums, sort, query) => {
-    const sortedAlbums = useSortedAlbums(albums, sort)
+export const useAlbums = (albums, userId, query) => {
+    const sortedAlbums = useSortedAlbums(albums, userId)
 
     const sortedAndSerchedAlbums = useMemo(() => {
         return sortedAlbums.filter(album => album.title.toLowerCase().includes(query.toLowerCase()))

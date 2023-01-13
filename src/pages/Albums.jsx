@@ -7,18 +7,19 @@ import '../styles/App.css';
 
 
 function Albums() {
+  const [userId, setUserId] = useState('nobody')
   const [albums, setAlbums] = useState([])
-  const [filter, setFilter] = useState({sort: '', query: ''})
-  const sortedAndSerchedAlbums = useAlbums(albums, filter.sort, filter.query)
+  const [filter, setFilter] = useState('')
+  const sortedAndSerchedAlbums = useAlbums(albums, userId, filter)
   const [isAlbumsLoading, setIsAlbumsLoading] = useState(false)
 
 
   useEffect(() => {
-      fetchPosts()
+      fetchAlbums()
   }, []) 
 
 
-  async function fetchPosts() {
+  async function fetchAlbums() {
     setIsAlbumsLoading(true)
     setTimeout(async() => {
       const albums = await AlbumService.getAll()
@@ -35,7 +36,7 @@ function Albums() {
   return (
     <div className="App">
       <h1>Альбомы</h1>
-      <AlbumFilter filter={filter} setFilter={setFilter}/>
+      <AlbumFilter filter={filter} setFilter={setFilter} userId={userId} setUserId={setUserId}/>
       {isAlbumsLoading
       ? <h1>Загрузка...</h1>
       : <AlbumList remove={removeAlbum} albums={sortedAndSerchedAlbums}/>

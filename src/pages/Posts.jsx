@@ -11,16 +11,18 @@ import '../styles/App.css';
 
 
 function Posts() {
+  const [userId, setUserId] = useState('nobody')
   const [posts, setPosts] = useState([])
-  const [filter, setFilter] = useState({sort: '', query: ''})
+  const [filter, setFilter] = useState('')
   const [modal, setModal] = useState(false)
-  const sortedAndSerchedPosts = usePosts(posts, filter.sort, filter.query)
+  const sortedAndSerchedPosts = usePosts(posts, userId, filter)
   const [isPostsLoading, setIsPostsLoading] = useState(false)
 
   useEffect(() => {
       fetchPosts()
   }, []) 
 
+  
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
     setModal(false)
@@ -49,7 +51,7 @@ function Posts() {
       <Modal visible={modal} setVisible={setModal}>
         <PostForm create={createPost}/>
       </Modal>
-      <PostFilter filter={filter} setFilter={setFilter}/>
+      <PostFilter filter={filter} setFilter={setFilter} userId={userId} setUserId={setUserId} />
       {isPostsLoading
         ? <h1>Загрузка...</h1>
         : <PostList remove={removePost} posts={sortedAndSerchedPosts}/>
