@@ -34,31 +34,37 @@ const PostIdPage = () => {
       })
 
     return(
-        <div>
+        <div className="App">
+            <div style={{textAlign: 'center'}}>
             <h1>Пост № {params.id}</h1>
             {isPostLoading
             ? <h1>Загрузка...</h1>
-            : <div>{post.id}. {post.title}</div>
+            : <div>{post.title}</div>
         }
-        <Btn style={{marginTop: '30px'}} onClick={() => setModal(true)}>
-        Создать пост
+            </div>
+            <div>
+            <Btn style={{marginTop: '15px'}} onClick={() => setModal(true)}>
+        Создать комментарий
       </Btn>
       <Modal visible={modal} setVisible={setModal}>
         <CommentForm create={createComment}/>
       </Modal>
-        <h4>Комментарии:</h4>
+        <h2>Комментарии пользователей:</h2>
         {isCommentsLoading
         ? <h1>Загрузка...</h1>
         : <div>
             {comment.map(comment => 
-                <div key={comment.id} style={{marginTop: 15}}>
-                    <h4>{comment.email}</h4>
-                    <h4>{comment.name}</h4>
-                    <div>{comment.body}</div>
+                <div key={comment.id} style={{ marginTop: 15}} className={'postId'}>
+                    <div><strong>Эл. почта пользователя:</strong> {comment.email}</div>
+                    <div><strong>Название комментария:</strong> {comment.name}</div>
+                    <div><strong>Описание комментария:</strong> {comment.body}</div>
                 </div>
                 )}
         </div>
-        }
+        }   
+            </div>
+        
+        
         </div>
     )
 }

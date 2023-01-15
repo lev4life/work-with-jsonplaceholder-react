@@ -1,0 +1,10 @@
+.mySlc{
+    border-radius: 5px;
+    border: 1px solid black;
+    margin: 10px 0 10px 0;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+.mySlcActive{
+    box-shadow: 7px 7px 10px rgba(38, 146, 113, 0.5)
+}

@@ -1,8 +1,20 @@
 .myBtn{
+    margin: 10px 2px 10px 0;
     padding: 5px 15px;
-    color: darkmagenta;
+    color: #6FB98F;
     font-size: 14px;
-    background: transparent;
+    background: #2C7873;
     border-radius: 5px;
+    border: none;
     cursor: pointer;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+}
+
+.myBtn:hover{
+    background: #021C1E
+}
+
+.myBtn:active{
+    background: peru
 }

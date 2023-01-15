@@ -1,6 +1,14 @@
 .myInp {
     width: 100%;
+    margin: 10px 0 10px 0;
     padding: 5px 15px;
     margin: 5px 0;
     border-radius: 5px;
+    border: 1px solid black;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5)
+}
+
+.myInpActive {
+
+    box-shadow: 7px 7px 10px rgba(38, 146, 113, 0.5)
 }

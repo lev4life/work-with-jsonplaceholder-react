@@ -3,7 +3,7 @@ import './styles/App.css';
 import {BrowserRouter} from 'react-router-dom'
 import Navbar from './components/UI/navbar/Navbar';
 import AppRouter from './components/AppRouter';
-import store from './redux/store';
+
 
 
 function App() {

@@ -6,7 +6,7 @@ const PostList = ({posts, title, remove}) => {
   if(!posts.length) {
       return(
         <h1 style={{textAlign: 'center', color: 'red'}}>
-          Список постов пуст!
+          Список постов пуст! Создайте пост.
         </h1>
       )
   }

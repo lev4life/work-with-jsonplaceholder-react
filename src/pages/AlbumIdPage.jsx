@@ -24,18 +24,21 @@ const AlbumIdPage = () => {
         },2000)
     }, [])
     return(
-        <div>
+        <div className="App">
+            <div style={{textAlign: 'center'}}>
             <h1>Альбом № {params.id}</h1>
             {isAlbumLoading
             ? <h1>Загрузка...</h1>
             : <h2>{album.title}</h2>
         }
-        <h4>Фотографии:</h4>
+            </div>
+            
+        <h2>Фотографии:</h2>
         {isPhotosLoading
         ? <h1>Загрузка...</h1>
         : <div>
             {photos.map(photos => 
-                <div key={photos.id} style={{marginTop: 15}}>
+                <div key={photos.id} style={{marginTop: 15}} className='albumId'>
                     <h4>Название: {photos.title}</h4>
                     <h4>Адрес: {photos.url}</h4>
                     <img src={photos.thumbnailUrl} alt={photos.title}/>

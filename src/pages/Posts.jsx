@@ -44,20 +44,20 @@ function Posts() {
 
   return (
     <div className="App">
-      <h1>Посты</h1>
-      <Btn style={{marginTop: '30px'}} onClick={() => setModal(true)}>
+      <h1 style={{textAlign: 'center'}}>Посты</h1>
+      <div className="App__container">
+      <Btn onClick={() => setModal(true)}>
         Создать пост
       </Btn>
       <Modal visible={modal} setVisible={setModal}>
         <PostForm create={createPost}/>
       </Modal>
       <PostFilter filter={filter} setFilter={setFilter} userId={userId} setUserId={setUserId} />
+      </div>
       {isPostsLoading
         ? <h1>Загрузка...</h1>
         : <PostList remove={removePost} posts={sortedAndSerchedPosts}/>
       }
-      
-      
     </div>
   );
 }

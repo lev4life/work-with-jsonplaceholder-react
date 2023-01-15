@@ -3,10 +3,9 @@ import MainService from "../API/MainService";
 import Inp from './UI/input/Inp'
 import Slc from './UI/select/Slc'
 
+
 const AlbumFilter = ({filter, setFilter, userId, setUserId}) => {
   const [users, setUsers] = useState([])
-
-  const store = createStore()
 
   useEffect(() => {
     fetchUsers()
@@ -39,6 +38,7 @@ const options = users.reduce((acc, user) => {
 
         ]}
         />
+
       </div>
     )
 }

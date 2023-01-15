@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
+
 import AlbumService from "../API/AlbumService";
 import AlbumFilter from "../components/AlbumFilter";
 import AlbumList from "../components/AlbumList";
 import { useAlbums } from "../hooks/useAlbums";
 import '../styles/App.css';
-
 
 function Albums() {
   const [userId, setUserId] = useState('nobody')
@@ -12,7 +12,6 @@ function Albums() {
   const [filter, setFilter] = useState('')
   const sortedAndSerchedAlbums = useAlbums(albums, userId, filter)
   const [isAlbumsLoading, setIsAlbumsLoading] = useState(false)
-
 
   useEffect(() => {
       fetchAlbums()
@@ -35,8 +34,10 @@ function Albums() {
 
   return (
     <div className="App">
-      <h1>Альбомы</h1>
+      <h1 style={{textAlign: 'center'}}>Альбомы</h1>
+      <div className="App__container">
       <AlbumFilter filter={filter} setFilter={setFilter} userId={userId} setUserId={setUserId}/>
+      </div>
       {isAlbumsLoading
       ? <h1>Загрузка...</h1>
       : <AlbumList remove={removeAlbum} albums={sortedAndSerchedAlbums}/>
