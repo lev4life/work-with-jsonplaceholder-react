@@ -6,7 +6,10 @@ const MainItem = (props) => {
   return (
     <div className="user">
       <div className="user__content">
-        <strong>{props.number}. {props.user.name}</strong>
+       <div><strong>{props.number}. Имя: </strong>{props.user.name}</div> 
+       <div><strong>Город: </strong>{props.user.address.city}</div>
+        <div><strong>Эл. почта: </strong>{props.user.email}</div>
+        <div><strong>Телефон: </strong>{props.user.phone}</div>
       </div>
       <div className="user__btns">
         <Btn onClick={() => props.remove(props.user)}>Удалить</Btn>
